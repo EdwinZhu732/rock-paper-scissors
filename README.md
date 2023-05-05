@@ -1,2 +1,2 @@
 # rock-paper-scissors
-A very basic 5-round game of rock-paper-scissors played on the browser. 
+A very basic 5-round game of rock-paper-scissors played on the browser. Accepts player input of rock, paper, or scissors (case-insensitive). Any other input does not work and is counted as a draw. Currently only displays results on console. 
