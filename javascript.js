@@ -44,7 +44,7 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function game(){
+/*function game(){
     let playerScore = 0;
     let computerScore = 0;
     for (let i = 0; i < 5; i++){
@@ -72,6 +72,54 @@ function game(){
     else{
         console.log("It's a tie! Final Score is "+playerScore+"-"+computerScore+"")
     }
+}*/
+
+let playerScore = 0;
+let computerScore = 0;
+let finished = false;
+const buttons = Array.from(document.querySelectorAll('.key'));
+const score = document.createElement('div');
+score.textContent= 'Score is 0-0';
+const reset = document.querySelector('.Reset');
+reset.parentNode.insertBefore(score, reset);
+buttons.forEach(key => key.addEventListener('click', () =>{
+    let playerChoice = key.getAttribute('id');
+    let computerChoice = getComputerChoice();
+    if (playRound(playerChoice, computerChoice) == 1){
+        playerScore++;
+        if (playerScore == 5 && finished == false){
+           finished = true;
+           score.textContent = "You won the game! Score is "+playerScore+"-"+computerScore+". Press reset or refresh to start another first to five.";
+        }
+        else {
+            score.textContent = "You win this round! "+playerChoice+" beats "+computerChoice+". Score is "+playerScore+"-"+computerScore+"";
+        }
+    }
+    else if (playRound(playerChoice, computerChoice) == 0){
+        computerScore++;
+        if (computerScore == 5 && finished == false){
+           finished = true;
+           score.textContent = "You lost the game! Score is "+playerScore+"-"+computerScore+". Press reset or refresh to start another first to five.";
+        }
+        else {
+            score.textContent = "You lose this round! "+playerChoice+" loses to "+computerChoice+". Score is "+playerScore+"-"+computerScore+"";
+        }
+    } 
+    else{
+        score.textContent= `Draw! You both picked ${playerChoice}. Score is ${playerScore}-${computerScore}`;
+    }
+}
+)
+);
+
+function clear(){
+    playerScore = 0;
+    computerScore = 0;
+    score.textContent = 'Score is 0-0';
+    finished = false;
 }
 
-game();
+reset.addEventListener('click', clear);
+
+
+
